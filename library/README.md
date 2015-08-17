@@ -1,0 +1,1 @@
+All javascript is loaded in index.html.  Opening it in the browser will show the results of the tests from main.js in the console.  I throw in an additional file (libDB) to keep track in case our user has multiple libraries.
