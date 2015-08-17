@@ -1,0 +1,21 @@
+.block {
+	width: 500px;
+    display: inline-block;
+    margin: 30px;
+    border: 1px solid green;
+    padding: 20px;
+    background-color: #ddd;
+}
+
+li {
+	margin: 5px;
+}
+
+.awesome {
+	width: 300px;
+	margin: auto;
+	text-align: center;
+	padding: 5px;
+	background-color: red;
+	font-size: 18px;
+}

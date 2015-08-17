@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>Awesome Index</title>
+	<link type='text/css' rel='stylesheet' href='awesome.css'>
+</head>
+<body>
+	<div class='page'>
+		<div class='block'>
+			<h2>Awesome data list - Vanilla</h2>
+			<ul id='data-list'></ul>
+			<div class='awesome'>
+				<span class='awesome-title'>The current awesome index is: </span>
+				<span id='awesome-index'></span>
+			</div>	
+		</div>
+		<div class='block'>
+			<h2>Awesome data list - jQuery & lodash</h2>
+			<ul id='data-list-jq'></ul>
+			<div class='awesome'>
+				<span class='awesome-title'>The current awesome index is: </span>
+				<span id='awesome-index-jq'></span>
+			</div>
+		</div>
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
+	<script src='data.js'></script>
+	<script type='text/javascript'>
+		(function () {
+			// Display the data set dynamically on the page
+			// Store the list element
+			var dataList = document.getElementById('data-list');
+
+			// Process data set
+			var createListObject = function (rawInput) {
+				
+				var superList = [];
+				
+				rawInput.forEach(function (obj) {
+
+					var keys = Object.keys(obj);
+
+					superList.push(keys.map(function (key) {
+						return key + ': ' + obj[key];
+					}));
+				});
+				return superList;
+			};
+
+			// Create list items and add to list element
+			var createListElement = function (listItem) {
+
+				var li = document.createElement('LI');
+
+				li.innerHTML = listItem.join('<br />');
+				dataList.appendChild(li);
+			};
+
+			createListObject(data).map(createListElement);
+
+			// Calculate AwesomeIndex average of programmers only
+			// Build an array of Awesome values
+			var getAwesome = function (){
+
+				var allAwesome = [];
+
+				data.forEach(function (d) {
+
+					if (d.awesomeIndex){
+						allAwesome.push(d.awesomeIndex);
+					}
+				});
+				return allAwesome;
+			};
+
+			// Calculate average
+			var findAwesome = getAwesome().reduce(function (a,b) {
+					return a + b;
+					}) / getAwesome().length;
+
+			document.getElementById('awesome-index').innerHTML = findAwesome;
+		})();
+	</script>
+	<script type='text/javascript'>
+		$(function () {
+			// Do it all with lo-dash and jQuery!
+			var dataList = _.map(data, function (d) {
+
+				var itemData = _.map(_.keys(d), function (k) {
+					return k + ': ' + d[k];
+				});
+				return $('<li>').append(itemData.join('<br />'));
+			});
+
+			$('#data-list-jq').append(dataList);
+
+			var findAwesome = function () {
+
+				var getAwesome = _.pluck(_.filter(data, {'occupation':'programmer'}), 'awesomeIndex');
+				return _.sum(getAwesome) / _.size(getAwesome);
+			};
+
+			$('#awesome-index-jq').text(findAwesome());
+		});
+	</script>
+</body>

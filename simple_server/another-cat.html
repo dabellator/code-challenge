@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport">
+	<title>Basic Exercises</title>
+</head>
+<body>
+	<h1>Another Cat</h1>
+
+	<div id="cat">
+		<h2>Please, click this cat</h2>
+		<img src="/cat2.jpg">
+		<div id="count"></div>	
+	</div>
+	<a href="/">I prefered the first cat</a>
+	<script type="text/javascript">
+		(function() {
+			var cat = document.getElementById('cat');
+			var count = 0;
+
+			function counter() {
+				count++
+				document.getElementById('count').innerHTML = count;
+			}
+
+			cat.addEventListener('click', counter, false);
+		})();
+	</script>
+</body>
+</html>
